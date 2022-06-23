@@ -14,22 +14,11 @@ enum Color {
     var firstPosition : Position {
         switch self {
         case .black:
-            return Position(rank: .8, file: .d)
+            return Position(rank: 8, file: .d)
         case .white:
-            return Position(rank: .1, file: .d)
+            return Position(rank: 1, file: .d)
         }
     }
-}
-
-enum Rank: Int {
-    case 1 = 0
-    case 2
-    case 3
-    case 4
-    case 5
-    case 6
-    case 7
-    case 8
 }
 
 enum File: Int {
@@ -44,22 +33,22 @@ enum File: Int {
 }
 
 struct Position: Equatable {
-    let rank: Rank
+    let rank: Int
     let file: File
     
     static func == (lhs: Position, rhs: Position) -> Bool {
-        lhs.rank.rawValue == rhs.rank.rawValue && lhs.file.rawValue == rhs.file.rawValue
+        lhs.rank == rhs.rank && lhs.file.rawValue == rhs.file.rawValue
     }
 }
 
 enum Direction {
-    case top
+    case up
     case left
-    case bottom
+    case down
     case right
     // 대각선
-    case topLeft
-    case topRight
+    case upLeft
+    case upRight
     case downLeft
     case downRight
 }
@@ -74,31 +63,39 @@ class King: Equatable {
         self.position = position
     }
     
-    func isMovable(position: Position) -> Bool {
-        return true
+    func isMovable(rank: Int, file: File?) -> Bool {
+        return (rank >= 0 && rank <= 8) && file != nil
     }
     
     // 이동 가능 여부 체크 함수
     func isMovable(direction: Direction) -> Bool {
+        var file: File?
+        var rank = 0
+        
         switch direction {
-        case .top:
-            return isMovable(position: Position(rank: position.rank - 1, file: position.file))
+        case .up:
+            rank = rank - 1
         case .left:
-            return isMovable(position: Position(rank: position.rank , file: position.file - 1))
-        case .bottom:
-            return isMovable(position: Position(rank: position.rank + 1, file: position.file))
+            file = File(rawValue: self.position.file.rawValue - 1)
+        case .down:
+            rank = rank + 1
         case .right:
-            return isMovable(position: Position(rank: position.rank, file: position.file + 1))
-        case .topLeft:
-            return isMovable(position: Position(rank: position.rank - 1, file: position.file - 1))
-        case .topRight:
-            return isMovable(position: Position(rank: position.rank - 1, file: position.file + 1))
+            file = File(rawValue: self.position.file.rawValue + 1)
+        case .upLeft:
+            rank = rank - 1
+            file = File(rawValue: self.position.file.rawValue - 1)
+        case .upRight:
+            rank = rank - 1
+            file = File(rawValue: self.position.file.rawValue + 1)
         case .downLeft:
-            return isMovable(position: Position(rank: position.rank + 1, file: position.file - 1))
+            rank = rank + 1
+            file = File(rawValue: self.position.file.rawValue - 1)
         case .downRight:
-            return isMovable(position: Position(rank: position.rank +1, file: position.file +1))
+            rank = rank + 1
+            file = File(rawValue: self.position.file.rawValue + 1)
         }
-        return true
+        
+        return isMovable(rank: rank, file: file)
     }
     
     static func == (lhs: King, rhs: King) -> Bool {

@@ -38,6 +38,24 @@ final class Board: BoardProtocol {
             let position = Coordinate(rank: .seven, file: file)
             self.create(Pawn(color: .white), at: position)
         }
+        
+        self.create(Bishop(color: .black), at: Coordinate(rank: .one, file: .C))
+        self.create(Bishop(color: .black), at: Coordinate(rank: .one, file: .F))
+        self.create(Bishop(color: .white), at: Coordinate(rank: .eight, file: .C))
+        self.create(Bishop(color: .white), at: Coordinate(rank: .eight, file: .F))
+        
+        self.create(Rook(color: .black), at: Coordinate(rank: .one, file: .A))
+        self.create(Rook(color: .black), at: Coordinate(rank: .one, file: .H))
+        self.create(Rook(color: .white), at: Coordinate(rank: .eight, file: .A))
+        self.create(Rook(color: .white), at: Coordinate(rank: .eight, file: .H))
+        
+        self.create(Knight(color: .black), at: Coordinate(rank: .one, file: .B))
+        self.create(Knight(color: .black), at: Coordinate(rank: .one, file: .G))
+        self.create(Knight(color: .white), at: Coordinate(rank: .eight, file: .B))
+        self.create(Knight(color: .white), at: Coordinate(rank: .eight, file: .G))
+        
+        self.create(Queen(color: .black), at: Coordinate(rank: .one, file: .E))
+        self.create(Queen(color: .white), at: Coordinate(rank: .eight, file: .E))
     }
     
     // MARK: - Requirement1 print current score
@@ -89,8 +107,22 @@ final class Board: BoardProtocol {
             return false
         }
         
-        let candidates = fromPiece.candidates(from: fromPosition)
-        if candidates.isEmpty || !candidates.contains(toPosition) {
+        let vaildCandidate = fromPiece
+            .candidates(from: fromPosition)
+            .first(where: { [weak self] candidate in
+                guard let self = self else { return false }
+                if candidate.destination == toPosition {
+                    if let transit = candidate.transit {
+                        return self.boardInfo[transit] == nil
+                    } else {
+                        return true
+                    }
+                } else {
+                    return false
+                }
+            })
+        
+        if vaildCandidate == nil {
             return false
         }
     

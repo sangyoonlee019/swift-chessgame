@@ -9,25 +9,29 @@ import Foundation
 
 enum PieceKind {
     case pawn
+    case bishop
+    case rook
+    case knight
+    case queen
     
     var score: Int {
         switch self {
         case .pawn: return 1
+        case .bishop, .knight: return 3
+        case .rook: return 5
+        case .queen: return 9
         }
     }
     
     var descriptions: (black: String, white: String) {
         switch self {
         case .pawn: return ("♟", "♙")
+        case .bishop: return ("♝", "♗")
+        case .rook: return ("♜", "♖")
+        case .knight: return ("♞", "♘")
+        case .queen: return ("♛", "♕")
         }
     }
-    
-    var directions: (black: Direction, white: Direction) {
-        switch self {
-        case .pawn: return (.down, .up)
-        }
-    }
-
 }
 
 enum PieceColor {
@@ -39,7 +43,7 @@ protocol Piece {
     var kind: PieceKind { get }
     
     // Requirement7 piece provide movable position based on current position
-    func candidates(from position: Coordinate) -> [Coordinate]
+    func candidates(from position: Coordinate) -> [Candidate]
 }
 
 extension Piece {
@@ -47,13 +51,6 @@ extension Piece {
         switch self.color {
         case .black: return self.kind.descriptions.black
         case .white: return self.kind.descriptions.white
-        }
-    }
-    
-    var direction: Direction {
-        switch self.color {
-        case .black: return self.kind.directions.black
-        case .white: return self.kind.directions.white
         }
     }
 }

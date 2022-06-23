@@ -11,11 +11,13 @@ struct Pawn: Piece {
     let color: PieceColor
     let kind: PieceKind = .pawn
     
-    func candidates(from position: Coordinate) -> [Coordinate] {
-        var candidates: [Coordinate] = []
-        if let candidate = position.move(count: 1, direction: self.direction) {
-            candidates.append(candidate)
+    func candidates(from position: Coordinate) -> [Candidate] {
+        var candidates: [Candidate] = []
+        let direction: Direction = color == .black ? .down : .up
+        if let finalPosition = position.move(count: 1, direction: direction) {
+            candidates.append(Candidate(destination: finalPosition))
         }
+        
         return candidates
     }
 }

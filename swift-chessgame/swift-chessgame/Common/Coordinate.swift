@@ -7,18 +7,27 @@
 
 import Foundation
 
+struct Unit {
+    let rank: Int
+    let file: Int
+    
+    static func +(lhs: Unit, rhs: Unit) -> Unit {
+        Unit(rank: lhs.rank + rhs.rank, file: lhs.file + rhs.file)
+    }
+}
+
 enum Direction {
     case up
     case down
     case left
     case right
     
-    var unit: (rank: Int, file: Int) {
+    var unit: Unit {
         switch self {
-        case .up:    return (-1, 0)
-        case .down:  return (1, 0)
-        case .left:  return (0, -1)
-        case .right: return (0, 1)
+        case .up:    return Unit(rank: -1, file: 0)
+        case .down:  return Unit(rank: 1, file: 0)
+        case .left:  return Unit(rank: 0, file: -1)
+        case .right: return Unit(rank: 0, file: 1)
         }
     }
 }
@@ -49,5 +58,24 @@ struct Coordinate: Hashable {
             return nil
         }
         return Coordinate(rank: newRank, file: newFile)
+    }
+    
+    func move(count: Int, unit: Unit) -> Coordinate? {
+        guard let newRank = Rank(rawValue: self.rank.rawValue + unit.rank * count),
+              let newFile = File(rawValue: self.file.rawValue + unit.file * count) else {
+            return nil
+        }
+        return Coordinate(rank: newRank, file: newFile)
+    }
+}
+
+struct Candidate {
+    let destination: Coordinate
+    let transit: Coordinate?
+}
+
+extension Candidate {
+    init(destination: Coordinate) {
+        self.init(destination: destination, transit: nil)
     }
 }

@@ -89,46 +89,15 @@ class King: Equatable {
     let color: Color
     let position: Position
     
-    init(color: Color, position: Position) {
+    init(color: Color) {
         self.color = color
-        self.position = position
+        self.position = self.color.firstPosition
     }
     
     func isMovable(rank: Int, file: File?) -> Bool {
         return (rank >= 0 && rank <= 8) && file != nil
     }
     
-/*    // 이동 가능 여부 체크 함수
-    func isMovable(direction: Direction) -> Bool {
-        var file: File?
-        var rank = 0
-        
-        switch direction {
-        case .up:
-            rank = rank - 1
-        case .left:
-            file = File(rawValue: self.position.file.rawValue - 1)
-        case .down:
-            rank = rank + 1
-        case .right:
-            file = File(rawValue: self.position.file.rawValue + 1)
-        case .upLeft:
-            rank = rank - 1
-            file = File(rawValue: self.position.file.rawValue - 1)
-        case .upRight:
-            rank = rank - 1
-            file = File(rawValue: self.position.file.rawValue + 1)
-        case .downLeft:
-            rank = rank + 1
-            file = File(rawValue: self.position.file.rawValue - 1)
-        case .downRight:
-            rank = rank + 1
-            file = File(rawValue: self.position.file.rawValue + 1)
-        }
-        
-        return isMovable(rank: rank, file: file)
-    }
-*/
     static func == (lhs: King, rhs: King) -> Bool {
         lhs.color == rhs.color && lhs.position == rhs.position
     }

@@ -33,36 +33,25 @@ class chess_PairTests: XCTestCase {
         }
     }
     
-    func testFirstPosition() {
-        let whiteKing: King = King(color: .white, position: Color.white.firstPosition)
-        XCTAssertTrue(whiteKing.isMakable(position: Color.white.firstPosition))
-        XCTAssertFalse(whiteKing.isMakable(position: Color.black.firstPosition))
-        
-        
-        let blackKing: King = King(color: .black, position: Color.black.firstPosition)
-        XCTAssertTrue(blackKing.isMakable(position: Color.black.firstPosition))
-        XCTAssertFalse(blackKing.isMakable(position: Color.white.firstPosition))
+    func 초기흰색좌표체크() {
+        let king: King = King(color: .white)
+        XCTAssertTrue(king.position == Color.white.firstPosition)
     }
     
-    func moveTest() {
-        let to = Color.white.firstPosition.left
-        let whiteKing: King = King(color: .white, position: Color.white.firstPosition)
-        if let whiteKingPosition = whiteKing.position.left, let to = to {
-            //"성공"
-            XCTAssertTrue(whiteKingPosition == to)
-        } else {
-            //실패
-        }
-        
-        
-        
-
+    func 초기검은색좌표체크() {
+        let king: King = King(color: .black)
+        XCTAssertTrue(king.position == Color.black.firstPosition)
     }
     
-    func 맨왼쪽상단에있을때() {
-        let to = Position(rank: 1, file: .a)
-        let whiteKing: King = King(color: .white, position: to)
-        XCTAssertTrue(whiteKing.position.left == nil)
+    func 좌로이동테스트() {
+        let kingPosition = King(color: .white).position.left
+        XCTAssertTrue(kingPosition == Position(rank: 1, file: .c))
     }
-
+    
+    func 우하단이동테스트() {
+        let kingPosition = King(color: .white).position.downRight
+        XCTAssertTrue(kingPosition == Position(rank: 1, file: .c))
+    }
+    /* ... */
+    // 요런식으로 테스트
 }

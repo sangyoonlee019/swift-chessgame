@@ -16,6 +16,7 @@
 		0957F38F28644416004CDAE2 /* chess_PairTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0957F38E28644416004CDAE2 /* chess_PairTests.swift */; };
 		0957F39928644416004CDAE2 /* chess_PairUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0957F39828644416004CDAE2 /* chess_PairUITests.swift */; };
 		0957F39B28644416004CDAE2 /* chess_PairUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0957F39A28644416004CDAE2 /* chess_PairUITestsLaunchTests.swift */; };
+		0957F3A8286444B2004CDAE2 /* King.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0957F3A7286444B2004CDAE2 /* King.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		0957F39428644416004CDAE2 /* chess-PairUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "chess-PairUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0957F39828644416004CDAE2 /* chess_PairUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chess_PairUITests.swift; sourceTree = "<group>"; };
 		0957F39A28644416004CDAE2 /* chess_PairUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chess_PairUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		0957F3A7286444B2004CDAE2 /* King.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = King.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				0957F38028644416004CDAE2 /* Assets.xcassets */,
 				0957F38228644416004CDAE2 /* LaunchScreen.storyboard */,
 				0957F38528644416004CDAE2 /* Info.plist */,
+				0957F3A7286444B2004CDAE2 /* King.swift */,
 			);
 			path = "chess-Pair";
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 			files = (
 				0957F37C28644415004CDAE2 /* ViewController.swift in Sources */,
 				0957F37828644415004CDAE2 /* AppDelegate.swift in Sources */,
+				0957F3A8286444B2004CDAE2 /* King.swift in Sources */,
 				0957F37A28644415004CDAE2 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -24,6 +24,10 @@
 		67B2387028606E2C008D7936 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B2386F28606E2C008D7936 /* Piece.swift */; };
 		67B2387228606E5F008D7936 /* Pawn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B2387128606E5F008D7936 /* Pawn.swift */; };
 		67B238822860B74F008D7936 /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B238812860B74F008D7936 /* Coordinate.swift */; };
+		67EF444F2869810B002E441D /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EF444E2869810B002E441D /* BoardView.swift */; };
+		67EF4454286982B2002E441D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 67EF4453286982B2002E441D /* SnapKit */; };
+		67EF44642869864B002E441D /* PieceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EF44632869864B002E441D /* PieceView.swift */; };
+		67EF446628698C97002E441D /* IndexPathExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EF446528698C97002E441D /* IndexPathExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +69,9 @@
 		67B2386F28606E2C008D7936 /* Piece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
 		67B2387128606E5F008D7936 /* Pawn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pawn.swift; sourceTree = "<group>"; };
 		67B238812860B74F008D7936 /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
+		67EF444E2869810B002E441D /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
+		67EF44632869864B002E441D /* PieceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceView.swift; sourceTree = "<group>"; };
+		67EF446528698C97002E441D /* IndexPathExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexPathExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67EF4454286982B2002E441D /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,7 +126,8 @@
 				67B2383128605551008D7936 /* AppDelegate.swift */,
 				67B2383328605551008D7936 /* SceneDelegate.swift */,
 				67B2383528605551008D7936 /* ViewController.swift */,
-				67B23861286055DB008D7936 /* Board.swift */,
+				67EF445028698110002E441D /* View */,
+				67EF445128698120002E441D /* Board */,
 				67B238802860B747008D7936 /* Common */,
 				67B2386728606D98008D7936 /* Piece */,
 				67B2383728605551008D7936 /* Main.storyboard */,
@@ -163,8 +172,34 @@
 			isa = PBXGroup;
 			children = (
 				67B238812860B74F008D7936 /* Coordinate.swift */,
+				67EF446528698C97002E441D /* IndexPathExtensions.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		67EF445028698110002E441D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				67EF444E2869810B002E441D /* BoardView.swift */,
+				67EF446228698640002E441D /* ReusableView */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		67EF445128698120002E441D /* Board */ = {
+			isa = PBXGroup;
+			children = (
+				67B23861286055DB008D7936 /* Board.swift */,
+			);
+			path = Board;
+			sourceTree = "<group>";
+		};
+		67EF446228698640002E441D /* ReusableView */ = {
+			isa = PBXGroup;
+			children = (
+				67EF44632869864B002E441D /* PieceView.swift */,
+			);
+			path = ReusableView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,6 +218,9 @@
 			dependencies = (
 			);
 			name = "swift-chessgame";
+			packageProductDependencies = (
+				67EF4453286982B2002E441D /* SnapKit */,
+			);
 			productName = "swift-chessgame";
 			productReference = 67B2382E28605551008D7936 /* swift-chessgame.app */;
 			productType = "com.apple.product-type.application";
@@ -255,6 +293,9 @@
 				Base,
 			);
 			mainGroup = 67B2382528605551008D7936;
+			packageReferences = (
+				67EF4452286982B2002E441D /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 67B2382F28605551008D7936 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -303,11 +344,14 @@
 				67B2383228605551008D7936 /* AppDelegate.swift in Sources */,
 				674864D728636DDA0027E13F /* Queen.swift in Sources */,
 				674864D328636AB40027E13F /* Rook.swift in Sources */,
+				67EF446628698C97002E441D /* IndexPathExtensions.swift in Sources */,
 				674864D528636DD50027E13F /* Knight.swift in Sources */,
 				67B2387228606E5F008D7936 /* Pawn.swift in Sources */,
 				674864D128636AA90027E13F /* Bishop.swift in Sources */,
 				67B2387028606E2C008D7936 /* Piece.swift in Sources */,
+				67EF444F2869810B002E441D /* BoardView.swift in Sources */,
 				67B23862286055DB008D7936 /* Board.swift in Sources */,
+				67EF44642869864B002E441D /* PieceView.swift in Sources */,
 				67B2383428605551008D7936 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -650,6 +694,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		67EF4452286982B2002E441D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		67EF4453286982B2002E441D /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 67EF4452286982B2002E441D /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 67B2382628605551008D7936 /* Project object */;
 }

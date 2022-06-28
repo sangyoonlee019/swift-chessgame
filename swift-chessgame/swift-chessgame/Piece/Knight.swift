@@ -14,16 +14,20 @@ struct Knight: Piece {
     func candidates(from position: Coordinate) -> [Candidate] {
         var candidates: [Candidate] = []
         let units: [(first: Unit, second: Unit)] = [
-            (Direction.up.unit, Direction.left.unit),
-            (Direction.up.unit, Direction.right.unit),
-            (Direction.down.unit, Direction.left.unit),
-            (Direction.down.unit, Direction.right.unit)
+            (Direction.up.unit, Direction.left.unit + Direction.up.unit),
+            (Direction.up.unit, Direction.right.unit + Direction.up.unit),
+            (Direction.down.unit, Direction.left.unit + Direction.down.unit),
+            (Direction.down.unit, Direction.right.unit + Direction.down.unit),
+            (Direction.left.unit, Direction.left.unit + Direction.up.unit),
+            (Direction.left.unit, Direction.left.unit + Direction.down.unit),
+            (Direction.right.unit, Direction.right.unit + Direction.up.unit),
+            (Direction.right.unit, Direction.right.unit + Direction.down.unit),
         ]
         
         units.forEach { unit in
             if let firstPosition = position.move(count: 1, unit: unit.first),
                let finalPosition = firstPosition.move(count: 1, unit: unit.second) {
-                candidates.append(Candidate(destination: finalPosition, transit: firstPosition))
+                candidates.append(Candidate(destination: finalPosition, transits: [firstPosition]))
             }
         }
         return candidates

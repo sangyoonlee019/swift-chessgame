@@ -25,9 +25,11 @@ struct Queen: Piece {
         ]
         
         units.forEach { unit in
+            var transits: [Coordinate] = []
             for count in 1... {
                 if let finalPosition = position.move(count: count, unit: unit) {
-                    candidates.append(Candidate(destination: finalPosition))
+                    candidates.append(Candidate(destination: finalPosition, transits: transits))
+                    transits.append(finalPosition)
                 } else {
                     break
                 }

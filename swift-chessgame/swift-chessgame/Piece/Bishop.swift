@@ -21,9 +21,11 @@ struct Bishop: Piece {
         ]
         
         units.forEach { unit in
+            var transit: [Coordinate] = []
             for count in 1... {
                 if let finalPosition = position.move(count: count, unit: unit) {
-                    candidates.append(Candidate(destination: finalPosition))
+                    candidates.append(Candidate(destination: finalPosition, transits: transit))
+                    transit.append(finalPosition)
                 } else {
                     break
                 }

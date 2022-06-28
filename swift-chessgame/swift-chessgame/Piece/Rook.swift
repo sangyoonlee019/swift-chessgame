@@ -21,9 +21,11 @@ struct Rook: Piece {
         ]
         
         directions.forEach { direction in
+            var transit: [Coordinate] = []
             for count in 1... {
                 if let finalPosition = position.move(count: count, direction: direction) {
-                    candidates.append(Candidate(destination: finalPosition))
+                    candidates.append(Candidate(destination: finalPosition, transits: transit))
+                    transit.append(finalPosition)
                 } else {
                     break
                 }

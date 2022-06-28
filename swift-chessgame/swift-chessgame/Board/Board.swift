@@ -20,7 +20,14 @@ protocol BoardProtocol {
     func create(_ piece: Piece, at position: Coordinate)
     
     // Requirement4 move piece on board
-    func move(fromPosition: Coordinate, toPosition: Coordinate) -> Bool
+    func move(fromPosition: Coordinate, toPosition: Coordinate)
+    func canMove(fromPosition: Coordinate, toPosition: Coordinate) -> Bool
+    
+    // Requirement2.1 get piece at position
+    func piece(at position: Coordinate) -> Piece?
+    
+    // Requirement2.2 get valid candidate postions of piece
+    func movablePositions(of piece: Piece, from position: Coordinate) -> [Coordinate]
 }
 
 
@@ -30,7 +37,7 @@ final class Board: BoardProtocol {
     
     func initialize() {
         Coordinate.files.forEach { file in
-            let position = Coordinate(rank: .one, file: file)
+            let position = Coordinate(rank: .two, file: file)
             self.create(Pawn(color: .black), at: position)
         }
         
@@ -61,7 +68,7 @@ final class Board: BoardProtocol {
     // MARK: - Requirement1 print current score
     func printCurrentScore() {
         let scores = calculateScore()
-        print(scores.black, scores.white)
+        print("white:", scores.white, "black:", scores.black)
     }
     
     func calculateScore() -> (black: Int, white: Int) {
@@ -102,7 +109,20 @@ final class Board: BoardProtocol {
     }
     
     // MARK: - Requirement4 move piece on board
-    func move(fromPosition: Coordinate, toPosition: Coordinate) -> Bool {
+    func move(fromPosition: Coordinate, toPosition: Coordinate) {
+        guard let fromPiece = boardInfo[fromPosition] else {
+            return
+        }
+        
+        if canMove(fromPosition: fromPosition, toPosition: toPosition) {
+            let killed = self.boardInfo[toPosition] != nil
+            self.boardInfo[fromPosition] = nil
+            self.boardInfo[toPosition] = fromPiece
+            killed ? self.printCurrentScore() : nil
+        }
+    }
+    
+    func canMove(fromPosition: Coordinate, toPosition: Coordinate) -> Bool {
         guard let fromPiece = boardInfo[fromPosition] else {
             return false
         }
@@ -112,8 +132,11 @@ final class Board: BoardProtocol {
             .first(where: { [weak self] candidate in
                 guard let self = self else { return false }
                 if candidate.destination == toPosition {
-                    if let transit = candidate.transit {
-                        return self.boardInfo[transit] == nil
+                    if let transits = candidate.transits {
+                        let transitIsEmpty = transits.reduce(true) {
+                            $0 && self.boardInfo[$1] == nil
+                        }
+                        return transitIsEmpty
                     } else {
                         return true
                     }
@@ -126,22 +149,27 @@ final class Board: BoardProtocol {
             return false
         }
     
-        let movePiece = {
-            self.boardInfo[fromPosition] = nil
-            self.boardInfo[toPosition] = fromPiece
-        }
-        
         if let toPiece = boardInfo[toPosition] {
-            if fromPiece.color == toPiece.color {
-                return false
-            } else {
-                movePiece()
-            }
+            return fromPiece.color != toPiece.color
         } else {
-            movePiece()
+            return true
         }
-        
-        return true
+    }
+    
+    // MARK: - Requirement2.1 get piece at Position
+    func piece(at position: Coordinate) -> Piece? {
+        return boardInfo[position]
+    }
+    
+    // MARK: - Requirement2.2 get candidate postions of piece
+    func movablePositions(of piece: Piece, from position: Coordinate) -> [Coordinate] {
+        piece
+            .candidates(from: position)
+            .map { candidate in candidate.destination }
+            .filter { [weak self] destination in
+                guard let self = self else { return false }
+                return self.canMove(fromPosition: position, toPosition: destination)
+            }
     }
 }
 

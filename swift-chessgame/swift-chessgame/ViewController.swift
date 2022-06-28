@@ -6,14 +6,22 @@
 //
 
 import UIKit
+import SnapKit
 
 class ViewController: UIViewController {
 
+    let boardView: UIView = BoardView(board: Board())
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        self.setupViews()
     }
-
-
+    
+    private func setupViews() {
+        self.view.addSubview(self.boardView)
+        self.boardView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+    }
 }
 

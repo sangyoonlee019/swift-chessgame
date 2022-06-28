@@ -36,6 +36,9 @@ struct Coordinate: Hashable {
     static let ranks: [Rank] = Rank.allCases
     static let files: [File] = File.allCases
     
+    static var maxColumn: Int { File.H.rawValue }
+    static var maxRow: Int { Rank.eight.rawValue }
+    
     let rank: Rank
     let file: File
     
@@ -71,11 +74,11 @@ struct Coordinate: Hashable {
 
 struct Candidate {
     let destination: Coordinate
-    let transit: Coordinate?
+    let transits: [Coordinate]?
 }
 
 extension Candidate {
     init(destination: Coordinate) {
-        self.init(destination: destination, transit: nil)
+        self.init(destination: destination, transits: nil)
     }
 }

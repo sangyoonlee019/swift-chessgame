@@ -36,6 +36,13 @@ enum PieceKind {
 
 enum PieceColor {
     case black, white
+    
+    mutating func turnEnd(){
+        switch self {
+        case .white: self = .black
+        case .black: self = .white
+        }
+    }
 }
 
 protocol Piece {
